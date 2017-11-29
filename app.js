@@ -25,7 +25,7 @@ const users = require('./routes/users');
 const app = express();
 
 // View Engine
-app.set('views', path.join(__dirname, 'views')); // in this line we are telling the system we want a folder called 'views' to handle the views
+app.set('views', path.join(__dirname, 'views/layouts')); // in this line we are telling the system we want a folder called 'views' to handle the views
 app.engine('handlebars', exphbs({ defaultLayout: 'layout' })); // here we are setting handlebars as the 'app.engine'  and we also saying default layout file we want it to be called layout
 app.set('view engine', 'handlebars'); // here we are setting application 'view engine' to 'handlebars'
 
@@ -72,8 +72,8 @@ app.use(flash());
 // setting some global variables for flash messages
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg'); // when we create global variable, we use 'res.locals.' then we write the name of the variable
-  req.locals.error_msg   = req.flash('error_msg');
-  req.locals.error = req.flash('error'); // the reason we have this here is because 'passport' sets its own flash messages
+  res.locals.error_msg   = req.flash('error_msg');
+  res.locals.error = req.flash('error'); // the reason we have this here is because 'passport' sets its own flash messages
   next();
 });
 
@@ -82,11 +82,11 @@ app.use('/', routes);
 app.use('/users', users);
 
 // Set Port
-app.set('port', (process.env.PORT || 3000));
-app.listen(app.get('port'), () => {
-  console.log('Server started on port ' + app.get('port'));
-});
-// const PORT = 3000;
-// app.listen(PORT, () => {
-//   console.log(`Server started on port ${PORT}`);
+// app.set('port', (process.env.PORT || 3333));
+// app.listen(app.get('port'), () => {
+//   console.log('Server started on port ' + app.get('port'));
 // });
+const PORT = 3333;
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
+});
