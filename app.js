@@ -82,11 +82,11 @@ app.use('/', routes);
 app.use('/users', users);
 
 // Set Port
-// app.set('port', (process.env.PORT || 3333));
-// app.listen(app.get('port'), () => {
-//   console.log('Server started on port ' + app.get('port'));
-// });
-const PORT = 3333;
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
+app.set('port', (process.env.PORT || 3000));
+app.listen(app.get('port'), () => {
+  console.log('Server started on port ' + app.get('port'));
 });
+// const PORT = 3333;
+// app.listen(PORT, () => {
+//   console.log(`Server started on port ${PORT}`);
+// });
