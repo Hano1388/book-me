@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const exphbs = require('express-handlebars');
+const hbs = require('express-handlebars');
 const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
@@ -26,8 +26,8 @@ const app = express();
 
 // View Engine
 app.set('views', path.join(__dirname, 'views/layouts')); // in this line we are telling the system we want a folder called 'views' to handle the views
-app.engine('handlebars', exphbs({ defaultLayout: 'layout' })); // here we are setting handlebars as the 'app.engine'  and we also saying default layout file we want it to be called layout
-app.set('view engine', 'handlebars'); // here we are setting application 'view engine' to 'handlebars'
+app.engine('hbs', hbs({ extname: 'hbs', defaultLayout: 'layout' })); // here we are setting handlebars as the 'app.engine'  and we also saying default layout file we want it to be called layout
+app.set('view engine', 'hbs'); // here we are setting application 'view engine' to 'handlebars'
 
 // BodyParser Middleware
 app.use(bodyParser.json());
