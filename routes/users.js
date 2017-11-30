@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
 const User = require('../models/user');
 
@@ -49,5 +51,43 @@ router.post('/register', (req, res) => {
     res.redirect('/users/login');
   }
 });
+
+// getting the user name, matches it and validates the password with local-stratigy
+
+passport.use(new LocalStrategy((username, password, done) => {
+  // getUserByUsername is a function from user model
+    User.getUserByUsername(username, (err, user) => {
+      if(err) throw err;
+      if(!user){
+        return done(null, false, {message: 'Unknown User'});
+      }
+      // comparePassword is another function that we need to create in user model
+      User.comparePassword(password, user.password, (err, isMatch) => {
+        if(err) throw err;
+        if(isMatch) {
+          return done(null, user);
+        } else {
+          return done(null, false, {message: 'Invalid password'});
+        }
+      })
+    });
+  }));
+
+  // Serialize and Deserialize password
+  passport.serializeUser(function(user, done) {
+    done(null, user.id);
+  });
+
+  passport.deserializeUser(function(id, done) {
+    User.getUserById(id, function(err, user) {
+      done(err, user);
+    });
+  });
+
+router.post('/login',
+  passport.authenticate('local', {successRedirect:'/', failureRedirect: '/users/login', failureFlash: true}),
+  (req, res) => {
+    res.redirect('/');
+  });
 
 module.exports = router;
