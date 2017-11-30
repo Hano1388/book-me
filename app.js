@@ -74,8 +74,12 @@ app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg'); // when we create global variable, we use 'res.locals.' then we write the name of the variable
   res.locals.error_msg   = req.flash('error_msg');
   res.locals.error = req.flash('error'); // the reason we have this here is because 'passport' sets its own flash messages
+  // changing menu according to user status
+  res.locals.user = req.user || null;
   next();
 });
+
+
 
 // Middlewares for our route files
 app.use('/', routes);
