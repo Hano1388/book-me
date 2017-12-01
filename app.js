@@ -13,8 +13,6 @@ const mongoose = require('mongoose');
 
 import roomsRoutes from './routes/roomListRoutes'
 
-// const Room = require('./models/roomListModel');
-
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/bookme', {
   useMongoClient: true
@@ -87,7 +85,7 @@ app.use((req, res, next) => {
 // Middlewares for our route files
 app.use('/', routes);
 app.use('/users', users);
-// app.use('/rooms', roomsRoutes);
+// app.use('/rooms', app.roomsRoutes);
 roomsRoutes(app);
 
 // Set Port
