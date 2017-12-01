@@ -1,8 +1,7 @@
-'use strict';
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const RoomSchema = new Schema({
+export const RoomSchema = new Schema({
   full_name: {
     type: String,
     Required: 'Enter first name'
@@ -32,24 +31,3 @@ const RoomSchema = new Schema({
     default: Date.now
   },
 });
-
-module.exports = mongoose.model('Rooms', RoomSchema);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//

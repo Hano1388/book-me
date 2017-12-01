@@ -11,8 +11,10 @@ const localStrategy = require('passport-local').Strategy;
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
 
-// mongoose.connect('mongodb://localhost/book-me');
-// const db = mongoose.connection;
+import roomsRoutes from './routes/roomListRoutes'
+
+// const Room = require('./models/roomListModel');
+
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/bookme', {
   useMongoClient: true
@@ -20,6 +22,7 @@ mongoose.connect('mongodb://localhost/bookme', {
 
 const routes = require('./routes/index');
 const users = require('./routes/users');
+// const roomsRoutes = require('./routes/roomListRoutes');
 
 // Init App
 const app = express();
@@ -84,6 +87,8 @@ app.use((req, res, next) => {
 // Middlewares for our route files
 app.use('/', routes);
 app.use('/users', users);
+// app.use('/rooms', roomsRoutes);
+roomsRoutes(app);
 
 // Set Port
 app.set('port', (process.env.PORT || 3000));
