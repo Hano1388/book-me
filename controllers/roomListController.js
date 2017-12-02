@@ -3,13 +3,24 @@ import { RoomSchema } from '../models/roomListModel';
 
 const Room = mongoose.model('Room', RoomSchema);
 
+    // export const list_all_rooms = (req, res) => {
+    //   Room.find({}, (err, task) => {
+    //     if(err) {
+    //       res.send(err);
+    //     }
+    //     res.json(task);
+    //   });
+    // };
+
     export const list_all_rooms = (req, res) => {
-      Room.find({}, (err, task) => {
-        if(err) {
-          res.send(err);
-        }
-        res.json(task);
-      });
+      return new Promise((resolve, reject) => {
+        Room.find({}, (err, task) => {
+          if(err) {
+            reject(res.send(err));
+          }
+          resolve(res.json(task));
+        });
+      })
     };
 
     export const create_a_room = (req, res) => {
@@ -42,4 +53,3 @@ const Room = mongoose.model('Room', RoomSchema);
         res.json(task);
       });
     };
-    
